@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beshoy Gaid — Mechatronics Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #ffffff0f;
+    --border-active: #ffffff22;
+    --accent: #e8d5a3;
+    --accent2: #7ecfb3;
+    --text: #e8e8f0;
+    --muted: #8888a0;
+    --faint: #3a3a50;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    backdrop-filter: blur(20px);
+    background: rgba(10,10,15,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #e8d5a315 0%, transparent 70%);
+    top: 50%; left: 60%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent2);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.25s forwards;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.4s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.55s forwards;
+  }
+
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #f5e8c0;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border-active);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-stats {
+    position: absolute;
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeLeft 0.8s ease 0.7s forwards;
+  }
+
+  .stat {
+    text-align: right;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--accent2);
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .about-langs {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .lang-pill {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border-active);
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .lang-pill span {
+    color: var(--accent);
+    margin-left: 0.4rem;
+  }
+
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+
+  .about-card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .quick-fact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .quick-fact:last-child { border-bottom: none; }
+
+  .qf-key {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .qf-val {
+    font-size: 0.82rem;
+    color: var(--text);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .skill-card:hover {
+    border-color: var(--border-active);
+    transform: translateY(-2px);
+  }
+
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-size: 0.78rem;
+    color: var(--muted);
+    background: var(--surface2);
+    padding: 0.3rem 0.65rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+  }
+
+  /* PROJECTS */
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: border-color 0.25s;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .project-card:hover { border-color: var(--border-active); }
+
+  .project-card.featured {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card.featured .project-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .project-visual {
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    border-right: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-visual-alt {
+    border-right: none;
+    border-left: 1px solid var(--border);
+  }
+
+  .project-diagram {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .pv-robot-svg {
+    width: 180px;
+    height: 180px;
+    opacity: 0.85;
+  }
+
+  .pneumatic-svg {
+    width: 180px;
+    height: 160px;
+    opacity: 0.85;
+  }
+
+  .project-info {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .project-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--faint);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .project-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.7rem;
+    background: transparent;
+    border: 1px solid var(--faint);
+    color: var(--accent2);
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+  }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--faint));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.45rem;
+    top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .timeline-dot.edu { background: var(--accent2); box-shadow: 0 0 0 1px var(--accent2); }
+  .timeline-dot.current { background: var(--accent); animation: pulse 2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 1px var(--accent); }
+    50% { box-shadow: 0 0 0 4px var(--accent)44; }
+  }
+
+  .timeline-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--faint);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-role {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-company {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .timeline-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  /* CONTACT */
+  #contact {
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-text p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.2s;
+    color: var(--text);
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    background: var(--surface2);
+  }
+
+  .cl-icon {
+    width: 36px; height: 36px;
+    background: var(--surface2);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  .cl-info { flex: 1; }
+  .cl-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .cl-value { font-size: 0.88rem; color: var(--text); margin-top: 0.15rem; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--faint);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translate(20px, -50%); }
+    to { opacity: 1; transform: translate(0, -50%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-active), transparent);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    .hero-stats { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-visual { border-right: none; border-bottom: 1px solid var(--border); }
+    .contact-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BG</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1>Beshoy<br><em>Gaid</em></h1>
+    <p class="hero-desc">
+      Mechatronics Engineer bridging mechanical design, electronics, and software. I build systems that move, sense, and think — from autonomous cleaning robots to smart home automation.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">2+</div>
+      <div class="stat-label">Years<br>Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Tools &<br>Software</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Languages<br>Spoken</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Who I am</div>
+  <h2>Engineer by degree,<br><em>builder by nature</em></h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm a <strong>Mechatronics Engineer</strong> graduated from the German University in Cairo in 2024, with hands-on experience spanning 3D design, finite element analysis, prototyping, smart home integration, and AI-driven workflow automation.</p>
+      <p>My work sits at the intersection of mechanical, electrical, and software engineering. I'm most energized when I'm taking a problem from <strong>concept to physical reality</strong> — designing in CAD, simulating in ANSYS, then building and testing the real thing.</p>
+      <p>Currently working as a Smart Home Engineer at Connect for Smart Automation, where I design and implement tailored automation systems for clients.</p>
+      <div class="about-langs">
+        <div class="lang-pill">Arabic <span>Native</span></div>
+        <div class="lang-pill">English <span>Fluent</span></div>
+        <div class="lang-pill">German <span>A2</span></div>
+      </div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-title">Quick Profile</div>
+      <div class="quick-fact"><span class="qf-key">Degree</span><span class="qf-val">B.Sc. Mechatronics</span></div>
+      <div class="quick-fact"><span class="qf-key">University</span><span class="qf-val">GUC, Cairo</span></div>
+      <div class="quick-fact"><span class="qf-key">Graduated</span><span class="qf-val">2024</span></div>
+      <div class="quick-fact"><span class="qf-key">Current Role</span><span class="qf-val">Smart Home Engineer</span></div>
+      <div class="quick-fact"><span class="qf-key">Location</span><span class="qf-val">Cairo, Egypt</span></div>
+      <div class="quick-fact"><span class="qf-key">Open to</span><span class="qf-val">Full-time / Freelance</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <h2>Skills &<br><em>Proficiencies</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-card-title">Mechanical</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Mechanical Design</span>
+        <span class="skill-tag">FEA</span>
+        <span class="skill-tag">Sheet Metal</span>
+        <span class="skill-tag">3D Printing</span>
+        <span class="skill-tag">Prototyping</span>
+      </div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.1s">
+      <div class="skill-icon">🖥️</div>
+      <div class="skill-card-title">Software</div>
+      <div class="skill-tags">
+        <span class="skill-tag">SolidWorks</span>
+        <span class="skill-tag">Fusion 360</span>
+        <span class="skill-tag">AutoCAD</span>
+        <span class="skill-tag">ANSYS</span>
+        <span class="skill-tag">MATLAB/Simulink</span>
+      </div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.2s">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-card-title">Electrical</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Electrical Engineering</span>
+        <span class="skill-tag">Control Circuits</span>
+        <span class="skill-tag">Pneumatic Systems</span>
+        <span class="skill-tag">Circuit Design</span>
+      </div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.1s">
+      <div class="skill-icon">💻</div>
+      <div class="skill-card-title">Programming</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.2s">
+      <div class="skill-icon">🏠</div>
+      <div class="skill-card-title">Automation</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Smart Home Systems</span>
+        <span class="skill-tag">IoT</span>
+        <span class="skill-tag">Workflow Automation</span>
+        <span class="skill-tag">AI Integration</span>
+      </div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.3s">
+      <div class="skill-icon">🔬</div>
+      <div class="skill-card-title">Analysis</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Finite Element Analysis</span>
+        <span class="skill-tag">Simulation</span>
+        <span class="skill-tag">System Design</span>
+        <span class="skill-tag">Technical Documentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2>Selected<br><em>Projects</em></h2>
+
+  <!-- Project 1: PV Robot -->
+  <div class="project-card reveal">
+    <div class="project-visual">
+      <svg class="pv-robot-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- PV Panel grid -->
+        <rect x="10" y="120" width="180" height="60" rx="3" fill="#1a2a3a" stroke="#7ecfb3" stroke-width="1.5"/>
+        <line x1="70" y1="120" x2="70" y2="180" stroke="#7ecfb344" stroke-width="1"/>
+        <line x1="130" y1="120" x2="130" y2="180" stroke="#7ecfb344" stroke-width="1"/>
+        <line x1="10" y1="150" x2="190" y2="150" stroke="#7ecfb344" stroke-width="1"/>
+        <!-- Robot body -->
+        <rect x="55" y="75" width="90" height="55" rx="4" fill="#2a3545" stroke="#e8d5a3" stroke-width="1.5"/>
+        <!-- Wheels -->
+        <circle cx="70" cy="132" r="10" fill="#333" stroke="#e8d5a344" stroke-width="1.5"/>
+        <circle cx="130" cy="132" r="10" fill="#333" stroke="#e8d5a344" stroke-width="1.5"/>
+        <circle cx="70" cy="132" r="4" fill="#e8d5a344"/>
+        <circle cx="130" cy="132" r="4" fill="#e8d5a344"/>
+        <!-- Brush -->
+        <rect x="50" y="93" width="100" height="12" rx="2" fill="#7ecfb3" opacity="0.7"/>
+        <!-- Sensor eyes -->
+        <circle cx="82" cy="95" r="5" fill="#0a0a0f" stroke="#7ecfb3" stroke-width="1"/>
+        <circle cx="118" cy="95" r="5" fill="#0a0a0f" stroke="#7ecfb3" stroke-width="1"/>
+        <circle cx="82" cy="95" r="2" fill="#7ecfb3"/>
+        <circle cx="118" cy="95" r="2" fill="#7ecfb3"/>
+        <!-- Antenna -->
+        <line x1="100" y1="75" x2="100" y2="55" stroke="#e8d5a3" stroke-width="1.5"/>
+        <circle cx="100" cy="52" r="4" fill="#e8d5a3" opacity="0.6"/>
+        <!-- Signal waves -->
+        <path d="M88 44 Q100 38 112 44" stroke="#e8d5a344" stroke-width="1.5" fill="none"/>
+        <path d="M82 38 Q100 30 118 38" stroke="#e8d5a322" stroke-width="1" fill="none"/>
+        <!-- Cleaning motion lines -->
+        <line x1="30" y1="100" x2="44" y2="100" stroke="#7ecfb366" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <line x1="156" y1="100" x2="170" y2="100" stroke="#7ecfb366" stroke-width="1.5" stroke-dasharray="3 2"/>
+      </svg>
+    </div>
+    <div class="project-info">
+      <div class="project-number">01 / Bachelor Project</div>
+      <div class="project-title">Automatic Climbing Cleaning Robot for PV Panels</div>
+      <p class="project-desc">Designed a fully autonomous robot that climbs and cleans photovoltaic panels to maintain solar efficiency. Handled the complete design-to-production pipeline: sheet metal fabrication, 3D-printed components, FEA validation, electrical circuit design in Proteus, and embedded code development.</p>
+      <div class="project-techs">
+        <span class="tech-tag">Fusion 360</span>
+        <span class="tech-tag">ANSYS FEA</span>
+        <span class="tech-tag">Sheet Metal</span>
+        <span class="tech-tag">3D Printing</span>
+        <span class="tech-tag">Proteus</span>
+        <span class="tech-tag">C++</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 2: Pneumatic -->
+  <div class="project-card reveal">
+    <div class="project-info">
+      <div class="project-number">02 / Automation Project</div>
+      <div class="project-title">Automatic Packaging System Using Pneumatics</div>
+      <p class="project-desc">Designed and implemented an automated packaging machine driven by a pneumatic system. Built the complete 3D model, designed and simulated the electrical control circuit, selected all pneumatic components, and deployed the system under real-world operating conditions.</p>
+      <div class="project-techs">
+        <span class="tech-tag">SolidWorks</span>
+        <span class="tech-tag">Pneumatic Design</span>
+        <span class="tech-tag">Control Circuits</span>
+        <span class="tech-tag">Relay Logic</span>
+        <span class="tech-tag">3D Modelling</span>
+      </div>
+    </div>
+    <div class="project-visual project-visual-alt">
+      <svg class="pneumatic-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Conveyor base -->
+        <rect x="10" y="110" width="180" height="12" rx="2" fill="#1e2535" stroke="#e8d5a344" stroke-width="1"/>
+        <!-- Conveyor rollers -->
+        <circle cx="30" cy="116" r="6" fill="#2a3545" stroke="#e8d5a344" stroke-width="1"/>
+        <circle cx="60" cy="116" r="6" fill="#2a3545" stroke="#e8d5a344" stroke-width="1"/>
+        <circle cx="90" cy="116" r="6" fill="#2a3545" stroke="#e8d5a344" stroke-width="1"/>
+        <circle cx="120" cy="116" r="6" fill="#2a3545" stroke="#e8d5a344" stroke-width="1"/>
+        <circle cx="150" cy="116" r="6" fill="#2a3545" stroke="#e8d5a344" stroke-width="1"/>
+        <circle cx="180" cy="116" r="6" fill="#2a3545" stroke="#e8d5a344" stroke-width="1"/>
+        <!-- Box on conveyor -->
+        <rect x="75" y="90" width="30" height="20" rx="1" fill="#2a3545" stroke="#7ecfb3" stroke-width="1.5"/>
+        <!-- Pneumatic cylinder 1 -->
+        <rect x="50" y="40" width="40" height="16" rx="2" fill="#1e2535" stroke="#e8d5a3" stroke-width="1.5"/>
+        <rect x="85" y="45" width="22" height="6" rx="1" fill="#e8d5a344"/>
+        <!-- Piston rod -->
+        <line x1="107" y1="48" x2="107" y2="90" stroke="#e8d5a3" stroke-width="2"/>
+        <rect x="100" y="86" width="14" height="8" rx="1" fill="#e8d5a388"/>
+        <!-- Pneumatic cylinder 2 -->
+        <rect x="120" y="40" width="40" height="16" rx="2" fill="#1e2535" stroke="#e8d5a3" stroke-width="1.5"/>
+        <rect x="155" y="45" width="14" height="6" rx="1" fill="#e8d5a344"/>
+        <line x1="155" y1="48" x2="140" y2="48" stroke="#e8d5a3" stroke-width="2"/>
+        <!-- Air tubes -->
+        <path d="M70 40 Q70 25 90 25 Q120 25 140 40" stroke="#7ecfb388" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+        <!-- Control box -->
+        <rect x="10" y="30" width="35" height="55" rx="2" fill="#1e2535" stroke="#7ecfb3" stroke-width="1.5"/>
+        <rect x="15" y="38" width="10" height="6" rx="1" fill="#7ecfb3" opacity="0.7"/>
+        <rect x="29" y="38" width="10" height="6" rx="1" fill="#e8d5a3" opacity="0.5"/>
+        <rect x="15" y="50" width="10" height="6" rx="1" fill="#333" stroke="#555" stroke-width="0.5"/>
+        <rect x="29" y="50" width="10" height="6" rx="1" fill="#333" stroke="#555" stroke-width="0.5"/>
+        <circle cx="22" cy="68" r="5" fill="#7ecfb322" stroke="#7ecfb3" stroke-width="1"/>
+        <circle cx="33" cy="68" r="5" fill="#e8d5a322" stroke="#e8d5a3" stroke-width="1"/>
+        <!-- Wires -->
+        <path d="M45 55 Q55 55 70 48" stroke="#7ecfb344" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Project 3: Smart Home -->
+  <div class="project-card reveal" style="grid-template-columns: 1fr">
+    <div class="project-info" style="padding: 2.5rem; border-top: 1px solid var(--border)">
+      <div class="project-number">03 / Professional Work</div>
+      <div class="project-title">Smart Home Automation Systems</div>
+      <p class="project-desc">At Connect for Smart Automation, I collaborate directly with clients to design and implement complete smart home systems. This involves understanding client requirements, creating system plans, selecting and configuring hardware components, and deploying and commissioning the full software stack.</p>
+      <div class="project-techs">
+        <span class="tech-tag">IoT Hardware</span>
+        <span class="tech-tag">System Design</span>
+        <span class="tech-tag">Client Consulting</span>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Automation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Journey</div>
+  <h2>Experience &<br><em>Education</em></h2>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-dot current"></div>
+      <div class="timeline-period">2023 — Present</div>
+      <div class="timeline-role">Smart Home Engineer</div>
+      <div class="timeline-company">Connect for Smart Automation</div>
+      <p class="timeline-desc">Design and implement tailored smart home systems for clients. Manage the full project lifecycle from requirements gathering and system planning to hardware selection, installation, and software configuration.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot edu"></div>
+      <div class="timeline-period">2024</div>
+      <div class="timeline-role">Bachelor of Science — Mechatronics Engineering</div>
+      <div class="timeline-company">German University in Cairo</div>
+      <p class="timeline-desc">Graduated with a focus on integrated mechanical, electrical, and software systems. Bachelor project: autonomous PV panel cleaning robot.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2023 · 1 Month</div>
+      <div class="timeline-role">Mechanical Engineering Intern</div>
+      <div class="timeline-company">SMG | Harley Davidson</div>
+      <p class="timeline-desc">Supported maintenance operations for high-performance motorcycles. Coordinated technical inspections and implemented solutions for mechanical issues.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2022 · 3 Months</div>
+      <div class="timeline-role">Engineering Intern</div>
+      <div class="timeline-company">Jetsolar</div>
+      <p class="timeline-desc">Assisted the engineering team in overseeing production workflows, performing maintenance checks, and participating in solar panel installation projects.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's connect</div>
+  <h2>Get in<br><em>Touch</em></h2>
+  <div class="contact-inner reveal">
+    <div class="contact-text">
+      <p>I'm currently open to new opportunities — whether that's a full-time engineering role, a freelance project, or a collaboration. If you have something interesting in mind, I'd love to hear about it.</p>
+      <a href="mailto:Gaid.beshoy@gmail.com" class="btn-primary" style="display:inline-block; text-decoration:none">Send an Email</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:Gaid.beshoy@gmail.com" class="contact-link">
+        <div class="cl-icon">✉</div>
+        <div class="cl-info">
+          <div class="cl-label">Email</div>
+          <div class="cl-value">Gaid.beshoy@gmail.com</div>
+        </div>
+      </a>
+      <a href="tel:+201002733843" class="contact-link">
+        <div class="cl-icon">📞</div>
+        <div class="cl-info">
+          <div class="cl-label">Phone</div>
+          <div class="cl-value">+20 100 273 3843</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/beshoygaid" target="_blank" class="contact-link">
+        <div class="cl-icon">in</div>
+        <div class="cl-info">
+          <div class="cl-label">LinkedIn</div>
+          <div class="cl-value">linkedin.com/in/beshoygaid</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Beshoy Gaid · Mechatronics Engineer · Cairo, Egypt</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
